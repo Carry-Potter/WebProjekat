@@ -1,0 +1,31 @@
+<div>
+    <div>
+        <img class="float-left mr-3" src="media/avatars/{{up.user.avatar}}" width="64" height="64">
+        <p>Ime: {{up.user.name}}</p>
+        <p>Prezime: {{up.user.surname}}</p>
+    </div>
+    <hr>
+    <form ng-submit="up.updateUser()">
+        <div class="form-group">
+            <label for="ime">Ime:</label>
+            <input type="text" name="ime" id="ime" class="form-control" placeholder="Ime" ng-model="up.editUser.name">
+        </div>
+        <div class="form-group">
+            <label for="prezime">Prezime:</label>
+            <input type="text" class="form-control" name="prezime" id="prezime" placeholder="Prezime" ng-model="up.editUser.surname">
+        </div>
+        <div class="form-group">
+            <div>
+                <label>Slika:</label>
+            </div>
+            <div>
+                <img class="clearfix" ngf-thumbnail="up.editUser.newAvatar || 'media/avatars/' + up.user.avatar" width="64" height="64">
+            </div>
+            <div class="btn btn-primary mt-2" ngf-select ng-model="up.editUser.newAvatar" name="avatar" ngf-pattern="'image/*'" ngf-accept="'image/*'">Select</div>
+        </div>
+
+        <div>
+            <input type="submit" class="btn btn-primary" value="Izmeni">
+        </div>
+    </form>
+</div>

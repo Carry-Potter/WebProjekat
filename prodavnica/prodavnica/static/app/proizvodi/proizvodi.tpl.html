@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>   </th>
+                    <th>naziv</th>
+                    <th>cena</th>
+                    <th>opis </th>
+                   
+                  
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr ng-repeat="k in pctrl.proizvodi">
+
+                    <td><img src="{{k['slika']}}" alt="slike" width="200px" height="200px"></td>
+                    <td><a ui-sref="proizvod({id: k['id']})" class="vel">{{k["naziv"]}}</a></td>
+                    <td class="font-weight-bold k " >{{k["cena"]}} din.</td>
+                    <td class="">{{k["opis"]}} </td>
+                    
+                    <td><p>kolicina:</p><input type="number" id="col" name="col" min="1" max="10" ><button class="btn btn-dark vel" ng-click="pctrl.shop_buy()" >dodaj u korpu</button></td>
+                
+                
+                </tr>
+                
+            
+            </tbody>
+           
+        </table>
+    </div>
+</div>
+<style>
+    .k{
+        margin-top: 90px;
+        width: 100px;
+    }
+    .vel{
+            margin-top: 90px;
+            width: 150px;
+            height: 50px;
+        }
+</style>

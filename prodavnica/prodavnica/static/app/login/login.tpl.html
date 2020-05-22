@@ -1,0 +1,16 @@
+<div class="loginForm">
+    <p ng-show="lc.failed">Neuspešno logovanje!</p>
+    <form class="form" ng-show="lc.showLogin" ng-submit="lc.login()">
+        <div class="form-group">
+            <p>Username</p>
+            <input class="form-control" type="text" ng-model="lc.user.username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <p>Password</p>
+            <input class="form-control" type="password" ng-model="lc.user.password" placeholder="Password">
+        </div>
+        <div class="form-group text-center">
+            <input class="btn btn-primary" type="submit" value="Login">
+        </div>
+    </form>
+</div>
