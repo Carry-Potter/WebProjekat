@@ -14,16 +14,7 @@
             "slika": "",
             
         };
-          this.shop_buy = function () {
-           
-            $http.post("/", this.noviProizvod).then(function (response) {
-                console.log(response);
-               
-                $state.go("/")
-            }, function (reason) {
-                console.log(reason);
-            });
-        }
+         
         this.dobaviProizvode = function() {
             $http.get("/proizvodi").then(function(result){
                 console.log(result);

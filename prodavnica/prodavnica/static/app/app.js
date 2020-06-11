@@ -36,11 +36,22 @@
             }
         }).state('proizvod', {
             parent: 'app',
-            url: 'proizvod/{id}',
+            url: '/proizvod/{id}',
             views: {
                 '': {
                     templateUrl: 'app/proizvod/proizvod.tpl.html',
                     controller: 'proizvodCtrl',
+                    controllerAs: 'pctrl'
+                }
+            }
+        })
+        .state('korpa', {
+            parent: 'app',
+            url: '/korpa',
+            views: {
+                '': {
+                    templateUrl: 'app/korpa/korpa.tpl.html',
+                    controller: 'korpaCtrl',
                     controllerAs: 'pctrl'
                 }
             }
@@ -83,16 +94,6 @@
                     templateUrl: 'app/onama/onama.tpl.html',
                     
                     controllerAs: 'pctrl'
-                }
-            }
-        }).state('korpa', {
-            parent: 'app',
-            url: '/korpa',
-            views: {
-                '': {
-                    templateUrl: 'app/korpa/korpa.tpl.html',
-                    controller: 'korpaCtrl',
-                    controllerAs: 'Kctrl'
                 }
             }
         })

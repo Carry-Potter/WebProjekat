@@ -2,15 +2,19 @@
     var app=angular.module("Aplikacija")
     
     app.controller("korpaCtrl", ["$http", "$stateParams", "$state", function($http, $stateParams, $state){
-        var that = this;
+        
        
         this.korpa = {};
+        this.novakorpa={
+            "id":"",
+            
+        }
         
         this.dobaviProizvodeKorpe = function() {
-            $http.get("/korpa").then(function(result){
+            $http.get("").then(function(result){
                 console.log(result);
                 
-                that.korpa = result.data;
+                this.korpa = result.data;
                 
             },
             function(reason){
@@ -18,6 +22,15 @@
             });
         }
         
+        this.shop_buy = function () {
+            $http.post("/korpa", this.novakorpa).then(function (response) {
+                console.log(response);
+               
+                $state.go("korpa")
+            }, function (reason) {
+                console.log(reason);
+            });
+        }
         
         this.dobaviProizvodeKorpe();
     }]);

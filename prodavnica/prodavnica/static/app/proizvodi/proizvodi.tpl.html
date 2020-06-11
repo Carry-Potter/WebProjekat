@@ -20,7 +20,9 @@
                     <td class="font-weight-bold k " >{{k["cena"]}} din.</td>
                     <td class="">{{k["opis"]}} </td>
                     
-                    <td><p>kolicina:</p><input type="number" id="col" name="col" min="1" max="10" ><button class="btn btn-dark vel" ng-click="pctrl.shop_buy()" >dodaj u korpu</button></td>
+                    <td><p>kolicina:</p><input type="number" name="col" min="1" max="10" >
+                        
+                    <button class="btn btn-dark vel" ng-click="pctrl.shop_buy()" >dodaj u korpu</button></td>
                 
                 
                 </tr>
@@ -29,7 +31,7 @@
             </tbody>
            
         </table>
-    </div>
+    </div> 
 </div>
 <style>
     .k{

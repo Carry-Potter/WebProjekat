@@ -3,17 +3,19 @@
     
     app.controller("proizvodCtrl", ["$http", "$stateParams", "$state", function($http, $stateParams, $state){
         var that = this;
-        this.proizvod = {};
+        this.proizvod = [];
        
-        this.idproizvodi = function(id){
-        $http.get("proizvod/" + id).then(function(result){
+        this.dobaviproizvod = function(id){
+        $http.get("api/proizvod/" + id).then(function(result){
             that.proizvod = result.data;
-                console.log(result);
+            console.log(id);
             },
             function(reason){
-                console.log(reason);          
+               
+                console.log(reason);     
+               
             })
         }
-    this.idproizvodi($stateParams["id"]);
+    this.dobaviproizvod($stateParams["id"]);
     }]);
 })(angular)
