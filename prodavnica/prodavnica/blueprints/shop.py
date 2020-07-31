@@ -13,8 +13,8 @@ def dobaviProizvode():
     proizvodi = cursor.fetchall()
     return flask.jsonify(proizvodi)
 
-@shop.route("proizvod/<int:id>", methods=["GET"])
-def idproizvodi(id):
+@shop.route(".api/proizvod/<int:id>")
+def dobaviproizvod(id, methods=["GET"]):
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM shop  WHERE id=%s", (id,))
     proizvod = cursor.fetchone()
@@ -28,7 +28,7 @@ def shop_delite(id):
     db.commit()
     return "", 204
 
-@shop.route("/", methods=["POST"])
+@shop.route("/api/korpa", methods=["POST"])
 def shop_buy():
     db = mysql.get_db() 
     cursor = db.cursor() 
@@ -37,7 +37,7 @@ def shop_buy():
     return flask.jsonify(flask.request.json), 201
 
 
-@shop.route("/korpa", methods=["GET"])
+@shop.route("/api/korpa", methods=["GET"])
 def dobaviProizvodeKorpe():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM korpa ")
