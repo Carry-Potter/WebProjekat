@@ -6,7 +6,7 @@
         this.proizvod = [];
        
         this.dobaviproizvod = function(id){
-        $http.get("api/proizvod/" + id).then(function(result){
+        $http.get("/proizvod/" + id).then(function(result){
             that.proizvod = result.data;
             console.log(id);
             },

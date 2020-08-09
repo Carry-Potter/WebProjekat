@@ -1,6 +1,6 @@
 import datetime
 import flask
-# Dobavljanje klase blueprint iz flask modula.
+
 from flask import Blueprint
 from utils.db_connection import mysql
 
@@ -13,7 +13,7 @@ def dobaviProizvode():
     proizvodi = cursor.fetchall()
     return flask.jsonify(proizvodi)
 
-@shop.route(".api/proizvod/<int:id>")
+@shop.route("/proizvod/<int:id>")
 def dobaviproizvod(id, methods=["GET"]):
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM shop  WHERE id=%s", (id,))
@@ -28,16 +28,16 @@ def shop_delite(id):
     db.commit()
     return "", 204
 
-@shop.route("/api/korpa", methods=["POST"])
+@shop.route("api/korpa/<int:id>", methods=["POST"])
 def shop_buy():
     db = mysql.get_db() 
     cursor = db.cursor() 
-    cursor.execute("INSERT INTO korpa( shop_id) VALUES( %(id)s)", flask.request.json)
+    cursor.execute("INSERT INTO korpa( shop_id, kolicina,cena,user_id) VALUES( %(shop_id)s,%(kolicina)s,%(cena)s,%(user_id)s)", flask.request.json)
     db.commit()
     return flask.jsonify(flask.request.json), 201
 
 
-@shop.route("/api/korpa", methods=["GET"])
+@shop.route("api/korpa", methods=["GET"])
 def dobaviProizvodeKorpe():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM korpa ")

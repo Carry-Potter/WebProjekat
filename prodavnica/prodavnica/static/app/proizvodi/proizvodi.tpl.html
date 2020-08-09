@@ -13,16 +13,16 @@
             </thead>
             <tbody>
                 
-                <tr ng-repeat="k in pctrl.proizvodi">
+                <tr ng-repeat="k in pctrl.aProizvodi">
 
-                    <td><img src="{{k['slika']}}" alt="slike" width="200px" height="200px"></td>
+                    <td><img src="{{k.slika}}" alt="slike" width="200px" height="200px"></td>
                     <td><a ui-sref="proizvod({id: k['id']})" class="vel">{{k["naziv"]}}</a></td>
                     <td class="font-weight-bold k " >{{k["cena"]}} din.</td>
                     <td class="">{{k["opis"]}} </td>
                     
-                    <td><p>kolicina:</p><input type="number" name="col" min="1" max="10" >
+                    <td><p>kolicina:</p><input ng-model="k.kolicina" type="number" name="col" min="1" max="10" >
                         
-                    <button class="btn btn-dark vel" ng-click="pctrl.shop_buy()" >dodaj u korpu</button></td>
+                    <button class="btn btn-dark vel" ng-click="pctrl.shop_buy(k)" >dodaj u korpu</button></td>
                 
                 
                 </tr>
