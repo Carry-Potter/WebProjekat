@@ -13,12 +13,16 @@ def dobaviProizvode():
     proizvodi = cursor.fetchall()
     return flask.jsonify(proizvodi)
 
-@shop.route("/proizvod/<int:id>")
-def dobaviproizvod(id, methods=["GET"]):
+@shop.route("/api/proizvod/<int:id_proizvoda>")
+def dobaviproizvod(id_proizvoda, methods=["GET"]):
     cursor = mysql.get_db().cursor()
-    cursor.execute("SELECT * FROM shop  WHERE id=%s", (id,))
+    cursor.execute("SELECT * FROM shop  WHERE id=%s", (id_proizvoda,))
     proizvod = cursor.fetchone()
-    return flask.jsonify(proizvod)
+    if proizvod is not None:
+        return flask.jsonify(proizvod) 
+    else:
+        return "", 404
+
 
 @shop.route("/<int:id>", methods=["DELETE"])
 def shop_delite(id):
