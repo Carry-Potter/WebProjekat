@@ -1,19 +1,20 @@
 <div class="row">
     <div class="col-12">
         <table class="table">
+            
             <thead>
                 <tr>
                     <th>   </th>
                     <th>naziv</th>
                     <th>cena</th>
                     <th>opis </th>
-                   
+                    <th><input type="text" placeholder="Pretraga" aria-label="Pretraga" ng-model="searchText"/>   </th>
                   
                 </tr>
             </thead>
             <tbody>
                 
-                <tr ng-repeat="k in pctrl.aProizvodi">
+                <tr ng-repeat="k in pctrl.aProizvodi | filter:searchText">
 
                     <td><img src="{{k.slika}}" alt="slike" width="200px" height="200px"></td>
                     <td><a ui-sref="proizvod({id: k['id']})" class="vel">{{k["naziv"]}}</a></td>

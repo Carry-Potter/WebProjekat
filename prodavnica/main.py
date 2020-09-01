@@ -17,7 +17,7 @@ app = Flask(__name__, static_url_path="")
 
 # Konfigurisanje sesije
 # Secret key mora biti postavljen da bi se sesija koristila.
-app.secret_key = "NEKI_RANDOM_STRING"
+app.secret_key = "RANDOM_STRING"
 
 # Konfiguracija za povezivanje na bazu podataka.
 app.config["MYSQL_DATABASE_USER"] = "root"
@@ -44,26 +44,17 @@ app.register_blueprint(user_services, url_prefix="/users")
 @app.route("/index")
 @app.route("/index.html")
 def home():
-    '''Funkcija koja vrsi obradu zahteva.
-    
-    Svi zahtevi koji pristignu na URL-ove / /index i /index.html bice obradjeni ovom f-jom.
-    Rezultat obrade ove funkcije je odgovor koji sadrzi podatke iscitane
-    iz datoteke index.html.
-    Pristupanje datom URL-u iz browsera za rezultat ce imati prikaz
-    stranice izgenerisane na osnovu index.html sablona.
-    '''
-
     return app.send_static_file("index.html")
 
 
-
+#dobavljanje svih proizvoda
 @app.route("/api/proizvodi", methods=["GET"])
 def dobaviProizvode():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM shop ")
     proizvodi = cursor.fetchall()
     return flask.jsonify(proizvodi)
-
+#dobavljanje jednog proizvoda
 @app.route("/api/proizvodi/<int:id_proizvoda>")
 def dobaviproizvod(id_proizvoda, methods=["GET"]):
     cursor = mysql.get_db().cursor()
@@ -73,13 +64,14 @@ def dobaviproizvod(id_proizvoda, methods=["GET"]):
         return flask.jsonify(proizvod) 
     else:
         return "", 404
+ #dobavljanje admin stranice       
 @app.route("/api/admin", methods=["GET"])
 def dobaviProizvodeA():
     cursor = mysql.get_db().cursor()
     cursor.execute("SELECT * FROM shop ")
     proizvodi = cursor.fetchall()
     return flask.jsonify(proizvodi)
-
+#uklanjanje proizvoda
 @app.route("/api/admin/<int:id_proizvoda>", methods=["DELETE"])
 def ukloni_proizvod(id_proizvoda):
     db = mysql.get_db()
@@ -87,7 +79,7 @@ def ukloni_proizvod(id_proizvoda):
     cursor.execute("DELETE FROM shop WHERE id=%s", (id_proizvoda,))
     db.commit()
     return "", 204
-
+#dodavanje
 @app.route("/api/proizvodi", methods=["POST"])
 def dodaj_proizvod():
     db = mysql.get_db() 
@@ -97,7 +89,7 @@ def dodaj_proizvod():
   
     db.commit() 
     return flask.jsonify(flask.request.json), 201
-
+#izmena proizvoda
 @app.route("/api/proizvodi/<int:id_proizvoda>", methods=["PUT"])
 def izmeni_proizvod(id_proizvoda):
     db = mysql.get_db()
@@ -107,6 +99,7 @@ def izmeni_proizvod(id_proizvoda):
     cursor.execute("UPDATE shop SET naziv=%(naziv)s, opis=%(opis)s, cena=%(cena)s, slika=%(slika)s WHERE id=%(id)s", data)
     db.commit()
     return "", 200
+
 # @app.route("/api/korpa/<int:id>", methods=["POST"])
 # def shop_buy():
 #     db = mysql.get_db() 
@@ -116,7 +109,7 @@ def izmeni_proizvod(id_proizvoda):
 #     return flask.jsonify(flask.request.json), 201
 
 
-
+#dodavanje proizvoda u korpu
 @app.route("/api/korpa/", methods=["POST"])
 def shop_buy(id_proizvoda):
     db = mysql.get_db()
@@ -124,7 +117,7 @@ def shop_buy(id_proizvoda):
     cursor.execute("INSERT INTO korpa SET shop_id=%(shop_id)s, kolicina=%(kolicina)s, cena=%(cena)s, user_id=%(user_id)s, user_id=%(user_id)s WHERE id=%(id)s", flask.request.json)
     db.commit()
     return flask.jsonify(flask.request.json), 201
-    
+#dobavljanje proizvoda iz korpe
 @app.route("/api/korpa", methods=["GET"])
 def dobaviProizvodeKorpe():
     cursor = mysql.get_db().cursor()
